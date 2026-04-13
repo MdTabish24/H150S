@@ -1,0 +1,110 @@
+Step 1: Import Libraries and Define File Path 
+import sqlite3 
+import pandas as pd 
+import numpy as np 
+db_path = "/content/olap_sales_15000.db"
+Step 2: Create a Connection to the Database 
+conn = sqlite3.connect(db_path)
+Step 3: Read the Sales Data 
+query = "SELECT * FROM sales" 
+df = pd.read_sql_query(query, conn)
+Step 4: Preview the Data 
+print(df.head) 
+print(len(df))
+Step 5: Slice Operation 
+slice_df = df[df['year'] == 2023] 
+print(slice_df)
+Step 6: Filter Operation (Slice on a Different Year) 
+slice_df = df[df['year'] == 2021] 
+print(slice_df)
+Step 7: Dice Operation 
+dice_data = df[(df['year'] == 2023) & (df['product'] == 'Tablet')] 
+print(dice_data)
+dice_data = df[(df['year'] == 2022) & (df['product'] == 'Laptop')] 
+print(dice_data)
+Step 8: Roll-up Operation 
+rollup_data = df.groupby('year')['sales_amount'].sum().reset_index() 
+print(rollup_data)
+Step 9: Pivot Operation 
+p_data = df.pivot_table(values="sales_amount", index="region", columns="year", 
+aggfunc="sum") 
+print(p_data) 
+
+---
+knn customer churn
+Step 1: Import Libraries and Define File Path 
+import pandas as pd 
+import numpy as np 
+from sklearn.model_selection import train_test_split 
+from sklearn.neighbors import KNeighborsClassifier 
+from sklearn.metrics import accuracy_score 
+db_path = "/content/churn-bigml-80.csv" 
+Step 2: Read the File and Display the Data 
+df = pd.read_csv('/content/churn-bigml-80.csv') 
+df.head()
+Step 3: Convert Categorical Text Values to Numbers 
+x1 = df['International plan'].map({'No': 0, 'Yes': 1}) 
+x2 = df['Voice mail plan'].map({'No': 0, 'Yes': 1})
+Step 4: Verify the DataFrame After Mapping 
+df
+Step 5: Select Feature Columns (X) 
+X = df[['International plan', 'Voice mail plan', 'Number vmail messages', 
+'Total day minutes', 'Total day calls', 'Total day charge', 
+'Total eve minutes', 'Total eve calls', 'Total eve charge', 
+'Total night minutes', 'Total intl minutes', 'Total intl calls', 
+'Total intl charge', 'Customer service calls']]
+Step 6: Prepare the Target Variable (y) 
+y = df['Churn'] 
+y = df['Churn'].map({False: 0, True: 1}) 
+print(X.head()) 
+Step 7: Check Dataset Information 
+df.info()
+---
+web scrapping
+Step 1: Import Required Libraries 
+import requests 
+from urllib.parse import urljoin 
+from bs4 import BeautifulSoup 
+import pandas as pd 
+Step 2: Fetch the Webpage and Get the CSV Link 
+url = 'https://ckandev.indiadataportal.com/dataset/area-production-yield-apy' 
+resp = requests.get(url) 
+resp.raise_for_status() 
+Step 3: Parse HTML and Find the CSV Link 
+soup = BeautifulSoup(resp.text, "html.parser") 
+link = soup.find("a", href=lambda href: href and href.endswith(".csv")) 
+csv_url = link['href'] 
+print("CSV URL:", csv_url)
+Step 4: Download and Load the CSV 
+csv_resp = requests.get(csv_url) 
+csv_resp.raise_for_status() 
+with open("crop_yield_data.csv", "wb") as f: 
+f.write(csv_resp.content) 
+df = pd.read_csv(csv_url) 
+print("Rows:", len(df), "Columns:", df.shape[1]) 
+print(df.head)
+Step 5: Repeat for a Different Dataset (Climate Data) 
+Step 6: Check Dataset Info 
+print(df.info()) 
+Step 7: Describe the Dataset 
+print(df.describe()) 
+----
+Agglomerative Hierarchical Clustering
+Step 1: Import Required Libraries 
+import pandas as pd 
+import matplotlib.pyplot as plt 
+from sklearn.preprocessing import StandardScaler 
+from sklearn.cluster import AgglomerativeClustering 
+from scipy.cluster.hierarchy import dendrogram, linkage
+df = pd.read_csv('/content/customer_sales_9000 (1).csv') 
+features = df[['Age', 'Purchase_Amount', 'Rating']]
+scaler = StandardScaler() 
+scaled_features = scaler.fit_transform(features)
+linked = linkage(scaled_features, method='ward') 
+plt.figure(figsize=(10, 5)) 
+dendrogram(linked) 
+plt.title("Dendrogram") 
+plt.xlabel("Data Points")
+plt.ylabel("Distance") 
+plt.show()
+

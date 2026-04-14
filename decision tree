@@ -1,0 +1,209 @@
+Attribute: Outlook
+Values (Outlook): Sunny, Overcast, Rain
+S = 14 → [ 9,4,5 ] → 14
+S_sunny = [ 2,4,3 ] → 9
+S_overcast = [ 4,0,0 ] → 4
+S_rain = [ 3,4,2 ] → 9
+
+Entropy(S) = -9/14 log₂ 9/14 - 5/14 log₂ 5/14
+          = -5/14 log₂ 5/14
+          = 0.940
+
+Entropy(S_sunny) = -2/9 log₂ 2/9 - 3/9 log₂ 3/9
+                 ≈ 0.9709
+                 ≈ 0.971
+
+Entropy(S_overcast) = -4/4 log₂ 4/4 - 0/4 log₂ 0/4
+                    = 0
+
+Entropy(S_rain) = -3/9 log₂ 3/9 - 2/9 log₂ 2/9
+                ≈ 0.971
+
+Gain(S, Outlook) = Entropy(S) - 5/14
+                                 ↓
+                        Dataset Attribute
+
+Entropy(S_sunny) - 4/14 [Entropy(S_overcast)] - 5/14 [Entropy(S_rain)]
+
+= 0.94 - 5/14 x 0.971 - 4/14 x 0 - 5/14 x 0.971
+= 0.246
+
+Gain (S, Outlook) = 0.246
+
+@ Attribute : Temp
+Value(Temp): Hot, Mild, cool
+S(14) → (9+, 5-)
+S_hot → [2+, 2-] 4
+S_mild → [4+, 2-] 6
+S_cool → [3+, 1-] 4
+
+Entropy (S) = 0.94
+
+Entropy (S_hot) = -2/4 log₂ 2/4 - 2/4 log₂ 2/4
+                = 1
+
+Entropy (S_mild) = -4/6 log₂ 4/6 - 2/6 log₂ 2/6
+                 = 0.918
+
+Entropy (S_cool) = -3/4 log₂ 3/4 - 1/4 log₂ 1/4
+                 = 0.811
+
+Gain (S, Temp) = 0.94 - 4/14 x 1 - 6/14 x 0.918
+                         - 4/14 x 0.811
+               = 0.029
+① Attribute : Humidity
+
+S(14) → [9+, 5-]
+S_high → [3+, 4-] 7
+S_normal → [6+, 1-] 7
+
+Entropy(S_high) = -3/7 log₂ 3/7 - 4/7 log₂ 4/7
+                = 0.985
+
+Entropy(S_normal) = -6/7 log₂ 6/7 - 1/7 log₂ 1/7
+                  = 0.591
+
+Gain(S, Humidity) = 0.94 - 7/14 x 0.985 - 7/14 x 0.591
+                  = 0.152
+
+② Attribute : Wind
+
+S(14) → [9+, 5-]
+S_weak → [6+, 2-] 8
+S_strong → [3+, 3-] 6
+
+Entropy(S_weak) = -6/8 log₂ 6/8 - 2/8 log₂ 2/8
+                = 0.811
+
+Entropy(S_strong) = -3/6 log₂ 3/6 - 3/6 log₂ 3/6
+                  = 1
+
+Gain(S, Wind) = 0.94 - 8/14 x 0.811 - 6/14 x 1
+Gain(S, Wind) = 0.094 - 0.048
+              = 0.046   (approx.)
+
+D₁, D₂, D₃, … , D₁₄
+[9+, 5-]
+
+          Outlook
+         /       \
+     Sunny     Overcast     Rain
+   [2+, 3-]    [4+, 0-]   [3+, 2-]
+ [D₁,D₂,D₈,    [D₃,D₇,    [D₄,D₅,D₆,
+  D₉,D₁₁]       D₁₂,D₁₃]   D₁₀,D₁₄]
+
+     0             Yes         ?
+
+Day   Temp    Humidity    Wind     Play
+D₁    Hot     High        Weak     Tennis?   (incomplete in image)
+D₂    Hot     High        Strong   No
+D₈    mild    high        weak     No
+D₉    cool    normal      weak     No
+D₁₁   mild    normal      strong   Yes
+
+
+S = 5 → [2+, 3-]
+
+Entropy(S) = -2/5 log₂ 2/5 - 3/5 log₂ 3/5
+           = 0.970
+
+Entropy(S_Temp) =
+
+S_hot = [0+, 2-] 2
+S_mild = [1+, 1-] 2
+S_cool = [1+, 0-] 1
+
+Entropy(S_hot) = -0/2 log₂ 0/2 - 2/2 log₂ 2/2
+               = 0
+
+Entropy(S_mild) = -1/2 log₂ 1/2 - 1/2 log₂ 1/2
+                = 1
+
+Entropy(S_cool) = -1/1 log₂ 1/1 - 0/1 log₂ 0/1
+                = 0
+
+Gain(S, Temp) = 0.970 - 2/5 x 0 - 2/5 x 1 - 1/5 x 0
+              = 0.57
+
+S_weak = [3+, 0-] 3
+S_strong = [0+, 2-] 2
+
+S_weak = -3/3 log₂ 3/3 - 0/3 log₂ 0/3
+       = 0
+
+S_strong = -0/2 log₂ 0/2 - 2/2 log₂ 2/2
+         = 0
+
+Gain(S, Wind) = 0.97
+
+① S_cool = [1+, 1-] 2
+S_mild = [2+, 1-] 3
+
+S_cool = -1/2 log₂ 1/2 - 1/2 log₂ 1/2
+       = 1
+
+S_mild = -2/3 log₂ 2/3 - 1/3 log₂ 1/3
+       = 0.918
+
+Gain(S, Temp) = 0.97 - 2/5 × 1 - 3/5 × 0.918
+              = 0.0192
+
+② S_high = [1+, 1-] 2
+S_normal = [2+, 1-] 3
+
+S_high = -1/2 log₂ 1/2 - 1/2 log₂ 1/2
+       = 1
+
+S_normal = -2/3 log₂ 2/3 - 1/3 log₂ 1/3
+         = 0.918
+
+Gain(S, Hum) = 0.0192
+
+② S_high = [0+, 3-] 3
+S_normal = [2+, 0-] 2
+
+Entropy(S_high) = -0/3 log₂ 0/3 - 3/3 log₂ 3/3
+                = 0
+
+Entropy(S_normal) = -2/2 log₂ 2/2 - 0/2 log₂ 0/2
+                  = 0
+
+Gain(S, Hum) = 0.97 - 3/5 × 0 - 2/5 × 0
+             = 0.97
+
+③ S_weak = [1+, 2-] 3
+S_strong = [1+, 1-] 2   (Note: image shows [1+, 1-] but calculation uses fractions for 2)
+
+Entropy(S_weak) = -1/3 log₂ 1/3 - 2/3 log₂ 2/3
+                = 0.918
+
+Entropy(S_strong) = -1/2 log₂ 1/2 - 1/2 log₂ 1/2
+                  = 1
+
+Gain(S, Wind) = 0.97 - 3/5 × 0.918 - 2/5 × 1
+              = 0.0192
+
+                  Outlook
+                 /       |       \
+            Sunny     Overcast     Rain
+          [2+, 3-]    [4+, 0-]   [3+, 2-]
+             |           |          |
+        Humidity       Yes         ?
+         /     \
+     High      Normal
+   [0+, 3-]   [2+, 0-]
+      No         Yes
+
+③ Rain :-
+
+Day   Temp    Humidity    Wind     Play
+D₄    Mild    High        weak     Yes
+D₅    cool    Normal      weak     Yes
+D₆    cool    Normal      strong   No
+D₁₀   mild    Normal      weak     Yes
+D₁₄   mild    high        strong   No
+
+S = 5 → [3+, 2-]
+
+Entropy(S) = -3/5 log₂ 3/5 - 2/5 log₂ 2/5
+           = 0.970

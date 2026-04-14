@@ -65,21 +65,26 @@ Step 1: Import Required Libraries
 import requests 
 from urllib.parse import urljoin 
 from bs4 import BeautifulSoup 
-import pandas as pd 
+import pandas as pd
 Step 2: Fetch the Webpage and Get the CSV Link 
-url = 'https://ckandev.indiadataportal.com/dataset/area-production-yield-apy' 
-resp = requests.get(url) 
-resp.raise_for_status() 
+import requests
+url = "https://people.sc.fsu.edu/~jburkardt/data/csv/csv.html"
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+resp = requests.get(url, headers=headers)
+resp.raise_for_status()
 Step 3: Parse HTML and Find the CSV Link 
-soup = BeautifulSoup(resp.text, "html.parser") 
-link = soup.find("a", href=lambda href: href and href.endswith(".csv")) 
-csv_url = link['href'] 
+soup = BeautifulSoup(resp.text, "html.parser")
+link = soup.find("a", href=lambda href: href and href.endswith(".csv"))
+csv_url = urljoin(url, link['href'])
 print("CSV URL:", csv_url)
 Step 4: Download and Load the CSV 
 csv_resp = requests.get(csv_url) 
 csv_resp.raise_for_status() 
 with open("crop_yield_data.csv", "wb") as f: 
-f.write(csv_resp.content) 
+  f.write(csv_resp.content) 
 df = pd.read_csv(csv_url) 
 print("Rows:", len(df), "Columns:", df.shape[1]) 
 print(df.head)
@@ -96,10 +101,13 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler 
 from sklearn.cluster import AgglomerativeClustering 
 from scipy.cluster.hierarchy import dendrogram, linkage
+Step 2: Load the Dataset and Select Features 
 df = pd.read_csv('/content/customer_sales_9000 (1).csv') 
 features = df[['Age', 'Purchase_Amount', 'Rating']]
+Step 3: Standardize the Features
 scaler = StandardScaler() 
 scaled_features = scaler.fit_transform(features)
+Step 4: Build the Linkage Matrix and Plot the Dendrogram 
 linked = linkage(scaled_features, method='ward') 
 plt.figure(figsize=(10, 5)) 
 dendrogram(linked) 

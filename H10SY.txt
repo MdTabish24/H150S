@@ -1,6 +1,13 @@
 Practical 2 
 Aim: Displaying different LED patterns with Raspberry Pi. 
 a) Single LED brightness. 
+a) Single LED brightness
+
+Raspberry Pi
+LED
+Ground Pin
+Default Pin
+
 import time 
 import RPi.GPIO as GPIO 
 GPIO.setmode(GPIO.BOARD) 
@@ -16,6 +23,11 @@ t
 ime.sleep(3) 
 OUTPUT: 
 b) Alternate Blinking LED Pattern: 
+Raspberry Pi
+2 LED
+2 Ground Pin
+2 Default Pin
+
 import RPi.GPIO as GPIO 
 import time 
 GPIO.setmode(GPIO.BCM) 
@@ -37,6 +49,11 @@ t
 ime.sleep(0.3) 
 OUTPUT: 
 C) Build Traffic signal circuit: 
+Raspberry Pi
+3 LED
+3 Ground Pin
+3 Default Pin
+
 import RPi.GPIO as GPIO 
 import time 
 GPIO.setmode(GPIO.BCM) 
@@ -73,12 +90,15 @@ print("GO")
 t
 ime.sleep(5) 
 OUTPUT: 
-04 
-TY.IT-A 
-MD.TABISH 
-MD.TABISH 04 TY.IT-A 
+
 Practical 3 
 Aim: Control LED brightness using PWM. 
+Raspberry Pi
+LED
+Ground Pin
+Default Pin
+Resistor
+
 import RPi.GPIO as GPIO 
 import time 
 GPIO.setmode(GPIO.BCM) 
@@ -101,6 +121,13 @@ OUTPUT:
  
 Practical 4 
 Aim: Control Stepper motor using Raspberry Pi. 
+Raspberry Pi (any model)
+Motor
+L293D(Push Pull four channel driver with diodes)
+1 Power
+1 ground
+2 default
+
 import RPi.GPIO  as GPIO 
 from time import sleep 
 GPIO.setmode(GPIO.BOARD)  
@@ -116,11 +143,17 @@ GPIO.output(motor1,GPIO.LOW)
 GPIO.output(motor2,GPIO.HIGH) 
 sleep(3) 
 OUTPUT: 
-TY.IT-A 
-MD.TABISH 
-04 
+
+
 Practical 5 
 Aim: Control LED using Push Button. 
+Raspberry Pi (any model)
+LED
+Resistor(320)
+2 ground
+2 default
+Push Button
+
 import RPi.GPIO as GPIO 
 import time 
 GPIO.setmode(GPIO.BOARD)  
@@ -143,6 +176,21 @@ MD.TABISH
 04 
 Practical 6 
 Aim: Displaying different LED patterns with Arduino Uno. 
+a) Single LED
+Arduino Uno R3
+LED-RED (or any color)
+RES (Resistor 220)
+Ground terminal
+b) ON/OFF LED
+Arduino Uno
+LED
+Resistor(10K)
+1ground
+c) Traffic Signal
+LED Color
+Arduino Pin
+
+
 A) Single LED: 
 void setup() { 
 pinMode(13, OUTPUT); // Set pin 13 as output 
@@ -159,10 +207,7 @@ loop() {
 digitalWrite(13, HIGH); 
 delay(1000);  
 digitalWrite(13, LOW); 
-delay(1000);  
-TY.IT-A 
-MD.TABISH 
-04 
+delay(1000);
 } 
 OUTPUT: 
 C) Traffic Signal: 
@@ -192,11 +237,17 @@ digitalWrite(red, HIGH);
 delay(5000);  
 } 
 OUTPUT: 
-04 
-TY.IT-A 
-MD.TABISH 
+
+
 Practical 7 
 Aim: Displaying digit over 7-Segment Display using Raspberry Pi. 
+Raspberry Pi (any model)
+7 Segment Common Cathod
+7 Resistor(220)
+1 ground
+7 default
+
+
 import RPi.GPIO as GPIO 
 import time 
 GPIO.setmode(GPIO.BCM) 
@@ -231,6 +282,12 @@ TY.IT-A
 MD.TABISH 
 Practical 8 
 Aim: Displaying digit over 7-Segment Display using Arduino. 
+Arduino Uno (any model)
+7 Segment Common Cathode
+7 Resistor(220)
+1 ground
+
+
 int segPins[7] = {2,3,4,5,6,7,8}; 
 byte digits[10][7] = { 
 {1,1,1,1,1,1,0}, //0 
@@ -266,6 +323,13 @@ TY.IT-A
 MD.TABISH 
 Practical 9 
 Aim: Control LED using Push Button Arduino. 
+Arduino uno (any model)
+LED
+Resistor(10K)
+Button
+2 ground
+
+
 const int ledPin = 13; 
 const int buttonPin = 2; 
 void setup() { 
@@ -282,6 +346,4 @@ digitalWrite(ledPin, LOW);
 } 
 } 
 OUTPUT: 
-TY.IT-A 
-MD.TABISH 
-04 
+

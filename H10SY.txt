@@ -347,3 +347,367 @@ digitalWrite(ledPin, LOW);
 } 
 OUTPUT: 
 
+______________________________________________________________________________________________________________________
+Practical 2 
+Aim: Displaying different LED patterns with Raspberry Pi. 
+a) Single LED brightness. 
+a) Single LED brightness
+
+Raspberry Pi
+LED
+Ground Pin
+Default Pin
+
+```python
+import time 
+import RPi.GPIO as GPIO 
+GPIO.setmode(GPIO.BOARD) 
+GPIO.setwarnings(False) 
+LED = 11 
+GPIO.setup(LED, GPIO.OUT) 
+while True: 
+    GPIO.output(LED, True) 
+    time.sleep(3) 
+    GPIO.output(LED, False) 
+    time.sleep(3) 
+```
+OUTPUT: 
+b) Alternate Blinking LED Pattern: 
+Raspberry Pi
+2 LED
+2 Ground Pin
+2 Default Pin
+
+```python
+import RPi.GPIO as GPIO 
+import time 
+GPIO.setmode(GPIO.BCM) 
+led1 = 17 
+led2 = 27 
+TY.IT-A 
+MD.TABISH 
+04 
+GPIO.setup(led1, GPIO.OUT) 
+GPIO.setup(led2, GPIO.OUT) 
+while True: 
+    GPIO.output(led1, True) 
+    GPIO.output(led2, False) 
+    time.sleep(0.3) 
+    GPIO.output(led1, False) 
+    GPIO.output(led2, True) 
+    time.sleep(0.3) 
+```
+OUTPUT: 
+C) Build Traffic signal circuit: 
+Raspberry Pi
+3 LED
+3 Ground Pin
+3 Default Pin
+
+```python
+import RPi.GPIO as GPIO 
+import time 
+GPIO.setmode(GPIO.BCM) 
+RED = 17 
+YELLOW = 27 
+GREEN = 22 
+GPIO.setup(RED, GPIO.OUT) 
+GPIO.setup(YELLOW, GPIO.OUT) 
+GPIO.setup(GREEN, GPIO.OUT) 
+try: 
+    while True: 
+        04 
+        TY.IT-A 
+        MD.TABISH 
+        # RED ON 
+        GPIO.output(RED, GPIO.HIGH) 
+        GPIO.output(YELLOW, GPIO.LOW) 
+        GPIO.output(GREEN, GPIO.LOW) 
+        print("STOP") 
+        time.sleep(5) 
+        # YELLOW ON 
+        GPIO.output(RED, GPIO.LOW) 
+        GPIO.output(YELLOW, GPIO.HIGH) 
+        GPIO.output(GREEN, GPIO.LOW) 
+        print("READY") 
+        time.sleep(2) 
+        # GREEN ON 
+        GPIO.output(RED, GPIO.LOW) 
+        GPIO.output(YELLOW, GPIO.LOW) 
+        GPIO.output(GREEN, GPIO.HIGH) 
+        print("GO") 
+        time.sleep(5) 
+```
+OUTPUT: 
+
+Practical 3 
+Aim: Control LED brightness using PWM. 
+Raspberry Pi
+LED
+Ground Pin
+Default Pin
+Resistor
+
+```python
+import RPi.GPIO as GPIO 
+import time 
+GPIO.setmode(GPIO.BCM) 
+LED = 18   
+GPIO.setup(LED, GPIO.OUT) 
+pwm = GPIO.PWM(LED, 1000) 
+pwm.start(0)   
+try: 
+    while True: 
+        for duty in range(0, 101):  # 0–100% 
+            pwm.ChangeDutyCycle(duty) 
+            time.sleep(0.02) 
+        for duty in range(100, -1):   
+            pwm.ChangeDutyCycle(duty) 
+            time.sleep(0.02) 
+except: 
+    print("error") 
+```
+OUTPUT: 
+ 
+ 
+Practical 4 
+Aim: Control Stepper motor using Raspberry Pi. 
+Raspberry Pi (any model)
+Motor
+L293D(Push Pull four channel driver with diodes)
+1 Power
+1 ground
+2 default
+
+```python
+import RPi.GPIO as GPIO 
+from time import sleep 
+GPIO.setmode(GPIO.BOARD)  
+motor1 = 7 
+motor2 = 11 
+GPIO.setup(motor1, GPIO.OUT) 
+GPIO.setup(motor2, GPIO.OUT)  
+while True: 
+    GPIO.output(motor1, GPIO.HIGH) 
+    GPIO.output(motor2, GPIO.LOW) 
+    sleep(3) 
+    GPIO.output(motor1, GPIO.LOW) 
+    GPIO.output(motor2, GPIO.HIGH) 
+    sleep(3) 
+```
+OUTPUT: 
+
+
+Practical 5 
+Aim: Control LED using Push Button. 
+Raspberry Pi (any model)
+LED
+Resistor(320)
+2 ground
+2 default
+Push Button
+
+```python
+import RPi.GPIO as GPIO 
+import time 
+GPIO.setmode(GPIO.BOARD)  
+BUTTON_PIN = 11 
+LED_PIN = 7 
+GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) 
+# Set pin 11 as input with pull-up resistor 
+GPIO.setup(LED_PIN, GPIO.OUT)  
+while True: 
+    if GPIO.input(BUTTON_PIN) == GPIO.LOW: 
+        # Check if button is pressed (LOW because of pull-up) 
+        GPIO.output(LED_PIN, GPIO.HIGH)  
+    else: 
+        GPIO.output(LED_PIN, GPIO.LOW)  
+    time.sleep(0.1)  
+```
+OUTPUT: 
+TY.IT-A 
+MD.TABISH 
+04 
+Practical 6 
+Aim: Displaying different LED patterns with Arduino Uno. 
+a) Single LED
+Arduino Uno R3
+LED-RED (or any color)
+RES (Resistor 220)
+Ground terminal
+b) ON/OFF LED
+Arduino Uno
+LED
+Resistor(10K)
+1ground
+c) Traffic Signal
+LED Color
+Arduino Pin
+
+
+A) Single LED: 
+```cpp
+void setup() { 
+    pinMode(13, OUTPUT); // Set pin 13 as output 
+} 
+void loop() { 
+    digitalWrite(13, HIGH); // Turn LED on 
+} 
+```
+OUTPUT: 
+B) ON/OFF LED: 
+```cpp
+void setup() { 
+    pinMode(13, OUTPUT);  
+} 
+void loop() { 
+    digitalWrite(13, HIGH); 
+    delay(1000);  
+    digitalWrite(13, LOW); 
+    delay(1000);
+} 
+```
+OUTPUT: 
+C) Traffic Signal: 
+```cpp
+int red = 10; 
+int yellow = 9; 
+int green = 8; 
+void setup() { 
+    pinMode(red, OUTPUT); 
+    pinMode(yellow, OUTPUT); 
+    pinMode(green, OUTPUT); 
+} 
+void loop() { 
+    digitalWrite(green, HIGH); 
+    digitalWrite(yellow, LOW); 
+    digitalWrite(red, LOW); 
+    delay(3000);  
+    digitalWrite(green, LOW); 
+    digitalWrite(yellow, HIGH); 
+    04 
+    TY.IT-A 
+    MD.TABISH 
+    digitalWrite(red, LOW); 
+    delay(2000); 
+    digitalWrite(green, LOW); 
+    digitalWrite(yellow, LOW); 
+    digitalWrite(red, HIGH); 
+    delay(5000);  
+} 
+```
+OUTPUT: 
+
+
+Practical 7 
+Aim: Displaying digit over 7-Segment Display using Raspberry Pi. 
+Raspberry Pi (any model)
+7 Segment Common Cathod
+7 Resistor(220)
+1 ground
+7 default
+
+
+```python
+import RPi.GPIO as GPIO 
+import time 
+GPIO.setmode(GPIO.BCM) 
+segments = [17,18,27,22,23,24,25] 
+for pin in segments: 
+    GPIO.setup(pin, GPIO.OUT) 
+    GPIO.output(pin, 0) 
+digits = [ 
+    [1,1,1,1,1,1,0], # 0 
+    [0,1,1,0,0,0,0], # 1 
+    [1,1,0,1,1,0,1], # 2 
+    [1,1,1,1,0,0,1], # 3 
+    [0,1,1,0,0,1,1], # 4 
+    [1,0,1,1,0,1,1], # 5 
+    [1,0,1,1,1,1,1], # 6 
+    [1,1,1,0,0,0,0], # 7 
+    [1,1,1,1,1,1,1], # 8 
+    [1,1,1,1,0,1,1]  # 9 
+] 
+while True: 
+    for num in digits: 
+        for i in range(7): 
+            GPIO.output(segments[i], num[i]) 
+        time.sleep(1) 
+```
+TY.IT-A 
+MD.TABISH 
+04 
+OUTPUT: 
+04 
+TY.IT-A 
+MD.TABISH 
+Practical 8 
+Aim: Displaying digit over 7-Segment Display using Arduino. 
+Arduino Uno (any model)
+7 Segment Common Cathode
+7 Resistor(220)
+1 ground
+
+
+```cpp
+int segPins[7] = {2,3,4,5,6,7,8}; 
+byte digits[10][7] = { 
+    {1,1,1,1,1,1,0}, //0 
+    {0,1,1,0,0,0,0}, //1 
+    {1,1,0,1,1,0,1}, //2 
+    {1,1,1,1,0,0,1}, //3 
+    {0,1,1,0,0,1,1}, //4 
+    {1,0,1,1,0,1,1}, //5 
+    {1,0,1,1,1,1,1}, //6 
+    {1,1,1,0,0,0,0}, //7 
+    {1,1,1,1,1,1,1}, //8 
+    {1,1,1,1,0,1,1}  //9 
+}; 
+void setup() { 
+    for(int i=0;i<7;i++) { 
+        pinMode(segPins[i], OUTPUT); 
+    } 
+} 
+void loop() { 
+    for(int num=0; num<10; num++) { 
+        for(int i=0;i<7;i++) { 
+            digitalWrite(segPins[i], digits[num][i]); 
+        } 
+        delay(1000);  
+    } 
+    TY.IT-A 
+    MD.TABISH 
+    04 
+} 
+```
+OUTPUT: 
+04 
+TY.IT-A 
+MD.TABISH 
+Practical 9 
+Aim: Control LED using Push Button Arduino. 
+Arduino uno (any model)
+LED
+Resistor(10K)
+Button
+2 ground
+
+
+```cpp
+const int ledPin = 13; 
+const int buttonPin = 2; 
+void setup() { 
+    pinMode(ledPin, OUTPUT); 
+    pinMode(buttonPin, INPUT_PULLUP);  
+} 
+void loop() { 
+    int buttonState = digitalRead(buttonPin); 
+    if(buttonState == LOW) {  
+        digitalWrite(ledPin, HIGH); 
+    } 
+    else {  
+        digitalWrite(ledPin, LOW); 
+    } 
+} 
+```
+OUTPUT:

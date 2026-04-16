@@ -1,118 +1,287 @@
-Step 1: Import Libraries and Define File Path 
-import sqlite3 
-import pandas as pd 
-import numpy as np 
-db_path = "/content/olap_sales_15000.db"
-Step 2: Create a Connection to the Database 
-conn = sqlite3.connect(db_path)
-Step 3: Read the Sales Data 
-query = "SELECT * FROM sales" 
-df = pd.read_sql_query(query, conn)
-Step 4: Preview the Data 
-print(df.head) 
-print(len(df))
-Step 5: Slice Operation 
-slice_df = df[df['year'] == 2023] 
-print(slice_df)
-Step 6: Filter Operation (Slice on a Different Year) 
-slice_df = df[df['year'] == 2021] 
-print(slice_df)
-Step 7: Dice Operation 
-dice_data = df[(df['year'] == 2023) & (df['product'] == 'Tablet')] 
-print(dice_data)
-dice_data = df[(df['year'] == 2022) & (df['product'] == 'Laptop')] 
-print(dice_data)
-Step 8: Roll-up Operation 
-rollup_data = df.groupby('year')['sales_amount'].sum().reset_index() 
-print(rollup_data)
-Step 9: Pivot Operation 
-p_data = df.pivot_table(values="sales_amount", index="region", columns="year", 
-aggfunc="sum") 
-print(p_data) 
-
----
-knn customer churn
-Step 1: Import Libraries and Define File Path 
-import pandas as pd 
-import numpy as np 
-from sklearn.model_selection import train_test_split 
-from sklearn.neighbors import KNeighborsClassifier 
-from sklearn.metrics import accuracy_score 
-db_path = "/content/churn-bigml-80.csv" 
-Step 2: Read the File and Display the Data 
-df = pd.read_csv('/content/churn-bigml-80.csv') 
-df.head()
-Step 3: Convert Categorical Text Values to Numbers 
-x1 = df['International plan'].map({'No': 0, 'Yes': 1}) 
-x2 = df['Voice mail plan'].map({'No': 0, 'Yes': 1})
-Step 4: Verify the DataFrame After Mapping 
-df
-Step 5: Select Feature Columns (X) 
-X = df[['International plan', 'Voice mail plan', 'Number vmail messages', 
-'Total day minutes', 'Total day calls', 'Total day charge', 
-'Total eve minutes', 'Total eve calls', 'Total eve charge', 
-'Total night minutes', 'Total intl minutes', 'Total intl calls', 
-'Total intl charge', 'Customer service calls']]
-Step 6: Prepare the Target Variable (y) 
-y = df['Churn'] 
-y = df['Churn'].map({False: 0, True: 1}) 
-print(X.head()) 
-Step 7: Check Dataset Information 
-df.info()
----
-web scrapping
-Step 1: Import Required Libraries 
-import requests 
-from urllib.parse import urljoin 
-from bs4 import BeautifulSoup 
-import pandas as pd
-Step 2: Fetch the Webpage and Get the CSV Link 
-import requests
-url = "https://people.sc.fsu.edu/~jburkardt/data/csv/csv.html"
-headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-    "Accept-Language": "en-US,en;q=0.9",
-}
-resp = requests.get(url, headers=headers)
-resp.raise_for_status()
-Step 3: Parse HTML and Find the CSV Link 
-soup = BeautifulSoup(resp.text, "html.parser")
-link = soup.find("a", href=lambda href: href and href.endswith(".csv"))
-csv_url = urljoin(url, link['href'])
-print("CSV URL:", csv_url)
-Step 4: Download and Load the CSV 
-csv_resp = requests.get(csv_url) 
-csv_resp.raise_for_status() 
-with open("crop_yield_data.csv", "wb") as f: 
-  f.write(csv_resp.content) 
-df = pd.read_csv(csv_url) 
-print("Rows:", len(df), "Columns:", df.shape[1]) 
-print(df.head)
-Step 5: Repeat for a Different Dataset (Climate Data) 
-Step 6: Check Dataset Info 
-print(df.info()) 
-Step 7: Describe the Dataset 
-print(df.describe()) 
-----
-Agglomerative Hierarchical Clustering
-Step 1: Import Required Libraries 
-import pandas as pd 
-import matplotlib.pyplot as plt 
-from sklearn.preprocessing import StandardScaler 
-from sklearn.cluster import AgglomerativeClustering 
-from scipy.cluster.hierarchy import dendrogram, linkage
-Step 2: Load the Dataset and Select Features 
-df = pd.read_csv('/content/customer_sales_9000 (1).csv') 
-features = df[['Age', 'Purchase_Amount', 'Rating']]
-Step 3: Standardize the Features
-scaler = StandardScaler() 
-scaled_features = scaler.fit_transform(features)
-Step 4: Build the Linkage Matrix and Plot the Dendrogram 
-linked = linkage(scaled_features, method='ward') 
-plt.figure(figsize=(10, 5)) 
-dendrogram(linked) 
-plt.title("Dendrogram") 
-plt.xlabel("Data Points")
-plt.ylabel("Distance") 
-plt.show()
-
+Practical 2 
+Aim: Displaying different LED patterns with Raspberry Pi. 
+a) Single LED brightness. 
+import time 
+import RPi.GPIO as GPIO 
+GPIO.setmode(GPIO.BOARD) 
+GPIO.setwarnings(False) 
+LED = 11 
+GPIO.setup(LED, GPIO.OUT) 
+while True: 
+GPIO.output(LED, True) 
+t
+ime.sleep(3) 
+GPIO.output(LED, False) 
+t
+ime.sleep(3) 
+OUTPUT: 
+b) Alternate Blinking LED Pattern: 
+import RPi.GPIO as GPIO 
+import time 
+GPIO.setmode(GPIO.BCM) 
+led1 = 17 
+led2 = 27 
+TY.IT-A 
+MD.TABISH 
+04 
+GPIO.setup(led1, GPIO.OUT) 
+GPIO.setup(led2, GPIO.OUT) 
+while True: 
+GPIO.output(led1, True) 
+GPIO.output(led2, False) 
+t
+ime.sleep(0.3) 
+GPIO.output(led1, False) 
+GPIO.output(led2, True) 
+t
+ime.sleep(0.3) 
+OUTPUT: 
+C) Build Traffic signal circuit: 
+import RPi.GPIO as GPIO 
+import time 
+GPIO.setmode(GPIO.BCM) 
+RED = 17 
+YELLOW = 27 
+GREEN = 22 
+GPIO.setup(RED, GPIO.OUT) 
+GPIO.setup(YELLOW, GPIO.OUT) 
+GPIO.setup(GREEN, GPIO.OUT) 
+try: 
+while True: 
+04 
+TY.IT-A 
+MD.TABISH 
+# RED ON 
+GPIO.output(RED, GPIO.HIGH) 
+GPIO.output(YELLOW, GPIO.LOW) 
+GPIO.output(GREEN, GPIO.LOW) 
+print("STOP") 
+t
+ime.sleep(5) 
+# YELLOW ON 
+GPIO.output(RED, GPIO.LOW) 
+GPIO.output(YELLOW, GPIO.HIGH) 
+GPIO.output(GREEN, GPIO.LOW) 
+print("READY") 
+t
+ime.sleep(2) 
+# GREEN ON 
+GPIO.output(RED, GPIO.LOW) 
+GPIO.output(YELLOW, GPIO.LOW) 
+GPIO.output(GREEN, GPIO.HIGH) 
+print("GO") 
+t
+ime.sleep(5) 
+OUTPUT: 
+04 
+TY.IT-A 
+MD.TABISH 
+MD.TABISH 04 TY.IT-A 
+Practical 3 
+Aim: Control LED brightness using PWM. 
+import RPi.GPIO as GPIO 
+import time 
+GPIO.setmode(GPIO.BCM) 
+LED = 18   
+GPIO.setup(LED, GPIO.OUT) 
+pwm = GPIO.PWM(LED, 1000) 
+pwm.start(0)   
+try: 
+    while True: 
+        for duty in range(0, 101):  # 0–100% 
+            pwm.ChangeDutyCycle(duty) 
+            time.sleep(0.02) 
+        for duty in range(100, -1):   
+            pwm.ChangeDutyCycle(duty) 
+            time.sleep(0.02) 
+except: 
+   print("error") 
+OUTPUT: 
+ 
+ 
+Practical 4 
+Aim: Control Stepper motor using Raspberry Pi. 
+import RPi.GPIO  as GPIO 
+from time import sleep 
+GPIO.setmode(GPIO.BOARD)  
+motor1=7 
+motor2=11 
+GPIO.setup(motor1,GPIO.OUT) 
+GPIO.setup(motor2,GPIO.OUT)  
+while True: 
+GPIO.output(motor1,GPIO.HIGH) 
+GPIO.output(motor2,GPIO.LOW) 
+sleep(3) 
+GPIO.output(motor1,GPIO.LOW) 
+GPIO.output(motor2,GPIO.HIGH) 
+sleep(3) 
+OUTPUT: 
+TY.IT-A 
+MD.TABISH 
+04 
+Practical 5 
+Aim: Control LED using Push Button. 
+import RPi.GPIO as GPIO 
+import time 
+GPIO.setmode(GPIO.BOARD)  
+BUTTON_PIN = 11 
+LED_PIN = 7 
+GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) 
+# Set pin 11 as input with pull-up resistor 
+GPIO.setup(LED_PIN, GPIO.OUT)  
+while True: 
+if GPIO.input(BUTTON_PIN) == GPIO.LOW: 
+# Check if button is pressed (LOW because of pull-up) 
+GPIO.output(LED_PIN, GPIO.HIGH)  
+else: 
+GPIO.output(LED_PIN, GPIO.LOW)  
+t
+ime.sleep(0.1)  
+OUTPUT: 
+TY.IT-A 
+MD.TABISH 
+04 
+Practical 6 
+Aim: Displaying different LED patterns with Arduino Uno. 
+A) Single LED: 
+void setup() { 
+pinMode(13, OUTPUT); // Set pin 13 as output 
+} 
+void loop() { 
+digitalWrite(13, HIGH); // Turn LED on 
+} 
+OUTPUT: 
+B) ON/OFF LED: 
+void setup() { 
+pinMode(13, OUTPUT);  
+} 
+loop() { 
+digitalWrite(13, HIGH); 
+delay(1000);  
+digitalWrite(13, LOW); 
+delay(1000);  
+TY.IT-A 
+MD.TABISH 
+04 
+} 
+OUTPUT: 
+C) Traffic Signal: 
+int red = 10; 
+int yellow = 9; 
+int green = 8; 
+void setup() { 
+pinMode(red, OUTPUT); 
+pinMode(yellow, OUTPUT); 
+pinMode(green, OUTPUT); 
+} 
+void loop() { 
+digitalWrite(green, HIGH); 
+digitalWrite(yellow, LOW); 
+digitalWrite(red, LOW); 
+delay(3000);  
+digitalWrite(green, LOW); 
+digitalWrite(yellow, HIGH); 
+04 
+TY.IT-A 
+MD.TABISH 
+digitalWrite(red, LOW); 
+delay(2000); 
+digitalWrite(green, LOW); 
+digitalWrite(yellow, LOW); 
+digitalWrite(red, HIGH); 
+delay(5000);  
+} 
+OUTPUT: 
+04 
+TY.IT-A 
+MD.TABISH 
+Practical 7 
+Aim: Displaying digit over 7-Segment Display using Raspberry Pi. 
+import RPi.GPIO as GPIO 
+import time 
+GPIO.setmode(GPIO.BCM) 
+segments = [17,18,27,22,23,24,25] 
+for pin in segments: 
+GPIO.setup(pin, GPIO.OUT) 
+GPIO.output(pin, 0) 
+digits = [ 
+[1,1,1,1,1,1,0], # 0 
+[0,1,1,0,0,0,0], # 1 
+[1,1,0,1,1,0,1], # 2 
+[1,1,1,1,0,0,1], # 3 
+[0,1,1,0,0,1,1], # 4 
+[1,0,1,1,0,1,1], # 5 
+[1,0,1,1,1,1,1], # 6 
+[1,1,1,0,0,0,0], # 7 
+[1,1,1,1,1,1,1], # 8 
+[1,1,1,1,0,1,1] # 9 
+] 
+while True: 
+for num in digits: 
+for i in range(7): 
+GPIO.output(segments[i], num[i]) 
+t
+ime.sleep(1) 
+TY.IT-A 
+MD.TABISH 
+04 
+OUTPUT: 
+04 
+TY.IT-A 
+MD.TABISH 
+Practical 8 
+Aim: Displaying digit over 7-Segment Display using Arduino. 
+int segPins[7] = {2,3,4,5,6,7,8}; 
+byte digits[10][7] = { 
+{1,1,1,1,1,1,0}, //0 
+{0,1,1,0,0,0,0}, //1 
+{1,1,0,1,1,0,1}, //2 
+{1,1,1,1,0,0,1}, //3 
+{0,1,1,0,0,1,1}, //4 
+{1,0,1,1,0,1,1}, //5 
+{1,0,1,1,1,1,1}, //6 
+{1,1,1,0,0,0,0}, //7 
+{1,1,1,1,1,1,1}, //8 
+{1,1,1,1,0,1,1} //9 
+}; 
+void setup() { 
+for(int i=0;i<7;i++) { 
+pinMode(segPins[i], OUTPUT); 
+} 
+} 
+void loop() { 
+for(int num=0; num<10; num++) { 
+for(int i=0;i<7;i++) { 
+digitalWrite(segPins[i], digits[num][i]); 
+} 
+delay(1000);  
+} 
+TY.IT-A 
+MD.TABISH 
+04 
+} 
+OUTPUT: 
+04 
+TY.IT-A 
+MD.TABISH 
+Practical 9 
+Aim: Control LED using Push Button Arduino. 
+const int ledPin = 13; 
+const int buttonPin = 2; 
+void setup() { 
+pinMode(ledPin, OUTPUT); 
+pinMode(buttonPin, INPUT_PULLUP);  
+} 
+void loop() { 
+int buttonState = digitalRead(buttonPin); 
+if(buttonState == LOW) {  
+digitalWrite(ledPin, HIGH); 
+} 
+else {  
+digitalWrite(ledPin, LOW); 
+} 
+} 
+OUTPUT: 
+TY.IT-A 
+MD.TABISH 
+04 

@@ -1,0 +1,116 @@
+https://drive.google.com/drive/folders/1f56YkcYYBGkQGQbcYTShc3ca5-lxg7WW
+https://youtube.com/playlist?list=PLG-cz6t92P1FIwG7IogwRJX2T1cXV6fgQ&si=D8j7jdiJTuM4UgI_
+
+
+
+Adding Raster Layer, Raster Styling and Analysis, Raster Mosaicking and Clipping ke andar Raster Layers ko manage karne ke 3 main parts sikhaye gaye hain. Neeche poora practical step-by-step Hinglish mein diya hai:
+
+---
+
+### **Part A: Adding Raster Layers (1:50)**
+
+* Layer menu par jao aur **Add Layer > Add Raster Layer** select karo.
+* `'...'` button par click karke apni raster file (jaise `.asc` file) choose karo.
+* **Add** par click karo, phir **Close** kar do.
+* (Isi tarah tum ek se zyada layers bhi add kar sakte ho.)
+
+---
+
+### **Part B: Raster Analysis and Styling (3:25)**
+
+#### **Styling:**
+
+* Layer par double click karo ya right-click karke **Properties** open karo.
+* **Symbology tab** mein jaake **Render type = Singleband pseudocolor** set karo.
+* Minimum aur Maximum values enter karo, phir **Color ramp** select karo aur **Classify** par click karo.
+* Mode ko **Continuous** rakho, phir **Apply** aur **OK** kar do.
+* (Yeh steps dono layers ke liye repeat karo.)
+
+#### **Analysis (Population Change):**
+
+* **Raster > Raster Calculator** par jao.
+* Expression mein likho: `Layer1 - Layer2`
+* Output file ka naam do (jaise: *Population Difference*) aur **OK** karo.
+* Nayi layer ki **Properties** mein jao aur ise **Singleband pseudocolor** set karo.
+* Mode ko **Discrete** select karo aur manually categories add karo:
+
+  * No Data
+  * Negative
+  * Neutral
+  * Positive
+
+---
+
+### **Part C: Raster Mosaicking and Clipping (10:06)**
+
+#### **Mosaicking (Merging):**
+
+* **Raster > Miscellaneous > Merge** par jao.
+* **Input layers** mein saari images select karo jo merge karni hain.
+* **Run** par click karo.
+
+#### **Clipping:**
+
+* Layer menu se India boundary wali **Shapefile (.shp)** add karo.
+* Symbology mein jaake boundary ko sirf **outline view** mein set karo.
+* **Raster > Extraction > Clip Raster by Mask Layer** par jao.
+* **Input layer** mein merged file select karo aur **Mask layer** mein boundary shapefile choose karo.
+* **Run** par click karo.
+
+👉 Isse merged image sirf boundary ke andar hi clip ho jayegi.
+-----
+AIM : RASTER MOSAICKING AND CLIPPING
+Part C: Raster Mosaicking and Clipping (10:06)
+Mosaicking (Merging):
+Raster > Miscellaneous > Merge par jao.
+Input layers mein saari images select karo jo merge karni hain.
+Run par click karo.
+Clipping:
+Layer menu se India boundary wali Shapefile (.shp) add karo.
+Symbology mein jaake boundary ko sirf outline view mein set karo.
+Raster > Extraction > Clip Raster by Mask Layer par jao.
+Input layer mein merged file select karo aur Mask layer mein boundary shapefile choose karo.
+Run par click karo.
+----
+AIM :A) MAKING A MAP
+B)IMPORTING SPREAD SHEETS OR CSV FILE .
+1. Data Layers Add karna (0:45 - 2:08)
+QGIS open karo aur apni Shapefiles (jaise Indian States, Maharashtra Location, Maharashtra Natural, POI) ek-ek karke Layers panel mein add karo.
+2. Layers ki Properties Set karna (2:45 - 3:23)
+Layers ke color aur boundary adjust karo.
+Example:
+Boundary dikhane ke liye fill color hatao aur sirf outline rakho.
+POI (Places of Interest) ko red color do.
+Map ko zoom karke us area par focus karo jise highlight karna hai (jaise Mumbai region).
+3. Print Layout banana (3:23 - 4:43)
+Project > New Print Layout par click karo.
+Add Item > Add Map select karke layout par drag karo.
+Map ko fix karne ke liye:
+Lock Layers
+Lock Styles for Layers tick karo.
+Phir zoom-in karke ek second map (Map 2) add karo jo chhote area (jaise Mumbai) ko zoom karke dikhaye.
+4. Overview Setup karna (4:55 - 5:20)
+Map 1 select karo → Item Properties mein jao.
+Overview option mein '+' click karo.
+Map Frame mein Map 2 select karo.
+👉 Isse Map 1, Map 2 ke area ko highlight karega.
+5. Title aur Copyright Label Add karna (5:40 - 8:30)
+Add Item > Add Label se map ka title likho (jaise Mumbai Map).
+Font aur color customize karo.
+Copyright ke liye label add karo:
+Text likho: © Copyright Reserved
+Render as HTML option tick karo.
+6. Legends add karna (8:54 - 10:07)
+Add Item > Add Legend select karo.
+Auto Update off karo.
+Layer names customize karo:
+Example: Maharashtra Water → Water
+Colors bhi manually adjust kar sakte ho.
+7. Scale Bar aur North Arrow (10:14 - 11:27)
+Add Item > Add Scale Bar se scale add karo.
+Add North Arrow se direction indicator add karo.
+8. Map Export karna (11:30 - 12:00)
+Layout > Export as Image par click karo.
+Format select karo (jaise JPEG).
+Best quality ke liye 600 DPI set karke save karo.
+------
